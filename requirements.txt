@@ -1,0 +1,13 @@
+attention
+numpy
+pandas
+sklearn
+tensorflow
+keras==2.7.0 # https://github.com/keras-team/keras
+pytest
+scipy
+h5py
+requests
+joblib
+Counter
+pyyaml

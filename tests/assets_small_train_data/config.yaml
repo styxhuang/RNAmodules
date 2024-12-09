@@ -1,0 +1,47 @@
+data:
+    train_fasta: "/mnt/e/code/DeepLearning/RNA_standalone/tests/assets_small_train_data/train.fasta"
+    pcp_file: "/mnt/e/code/DeepLearning/RNA_standalone/tests/assets_small_train_data/physical_chemical_properties_RNA.txt"
+    predict_fasta: "/mnt/e/code/DeepLearning/RNA_standalone/tests/assets_small_train_data/predict.fasta"
+    train_dir: "" # 记录训练模型存放位置
+
+features:
+    feature1:
+        type: "knfc" # kmer, knfc, pcp, pseDNC, rnafold
+        params:
+            k: 5
+    feature2:
+        type: "kmer"
+        params:
+            k: 3
+    feature3:
+        type: "pcp"
+        params:
+            k: 4
+    feature4:
+        type: "pseDNC"
+        params:
+            k: 6
+    # feature3:
+    #     type: "rnafold"
+    #     params:
+    #         T: 37
+    #         salt: 1.021
+
+fusion:
+    layer1:
+        type: "lstm"
+        layers: ["feature1", "feature2"]
+        seed: 1846
+    layer2:
+        type: "attention"
+        layers: ["feature3", "feature4"]
+        seed: 1846
+
+train:
+    rna_decorate_method: 'RESG' # RESG, SVM, RF
+    positive_num: 600
+    negtive_num: 1300
+    cross_compare: 3
+    epochs: 3
+    shuffle: true
+    imbalance: ADASYN # None, Sample_weight, ADASYN
