@@ -28,11 +28,19 @@ from src.KNFC import generate_fn_file
 from src.train import rna_train
 
 class RNAtrain:
-    def __init__(self, config: dict, mode: bool, logger: logging):
+    def __init__(self, config: dict, output_dir: str, mode: bool, logger: logging):
         self.logger = logger
-        self.train_fasta = self._read_fasta(config['data']['train_fasta'])
-        self.pcp = config['data']['pcp_file']
+
+        _train_fasta    = Path(config['data']['train_fasta']).resolve()
+        _pcp_file       = Path(config['data']['pcp_file']).resolve()
+        self.train_fasta = self._read_fasta(str(_train_fasta.resolve()))
+        self.pcp = str(_pcp_file)
         self.fusion = config['fusion']
+
+        # chdir
+        _pre_dir = os.getcwd()
+        os.chdir(output_dir)
+
         # features
         self.features = {}
         with Timer('Train.extract_feature') as t1:
@@ -53,7 +61,8 @@ class RNAtrain:
         with Timer('Train.train') as t3:
             df = rna_train(self.feature_list, self.deep_fusion, self.params, self.random_seed,
                     self.train_fasta, self.summary_df, config, self.logger)
-        print()
+        self.logger.info('Trained Data!')
+        os.chdir(_pre_dir)
 
     def _read_fasta(self, file):
         f = open(file)
@@ -168,12 +177,11 @@ class RNAtrain:
 
 def train(config_file: str, output_dir: str, verbose=None, logger=None):
     config = load_config(config_file)
-    os.chdir(output_dir)
     if not logger:
         raise ValueError("No logger found!!")
 
     with Timer('Train') as timer:
-        rna = RNAtrain(config, verbose, logger)
+        rna = RNAtrain(config, output_dir, verbose, logger)
         
         # save feature.info
         _out_data = {
@@ -190,19 +198,3 @@ def train(config_file: str, output_dir: str, verbose=None, logger=None):
 
     export_time(logger, log_type='a')
     return config
-
-def main(args=None):
-    parser = argparse.ArgumentParser(description="RNAfold training with specified parameters.")
-    parser.add_argument("-i", "--config", type=str, help="Predict FASTA file", required=True, metavar="path to config.yaml file")
-    parser.add_argument("-o", "--output", type=str, help="Output dir", required=True, metavar="directory path")
-    parser.add_argument("-v", "--verbose", help="Enable verbose mode", action="store_true")
-
-    parsed_args     = parser.parse_args(args)
-    output_dir      = parsed_args.output
-    config_file     = parsed_args.config
-    if parsed_args.verbose is None:
-        train(config_file, output_dir)
-    else:
-        train(config_file, output_dir, parsed_args.verbose)
-
-    return parsed_args

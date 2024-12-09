@@ -9,9 +9,11 @@ import argparse
 
 from utils.logger import rna_logger
 
-class RNA():
+class RNA_tool():
     def __init__(self, config_file: str, out_dir: str, \
                     is_train: bool=False, is_predict: bool=False, debug: bool=False):
+        config_file = str(Path(config_file).resolve())
+        out_dir = str(Path(out_dir).resolve())
         if debug:
             log_level = logging.DEBUG
         else:
@@ -31,7 +33,7 @@ class RNA():
             _predict_dir = Path(out_dir) / 'predict_results'
             _predict_dir.mkdir()
             predict(config_file, str(_predict_dir), str(_train_dir), logger=self.logger)
-        self.logger.info(f'Finish predicting. Results saved in {str(_predict_dir)}')
+            self.logger.info(f'Finish predicting. Results saved in {str(_predict_dir)}')
         print()
     def _init_logger(self, **kwargs):
         log_type = kwargs.get("log_type", "simple")
@@ -66,7 +68,7 @@ class RNA():
         _logger.addHandler(fh)
         return _logger
 
-def main(args=None):
+def main():
     # 设置参数解析
     parser = argparse.ArgumentParser(description="Run RNAfold with specified parameters.")
     parser.add_argument("-i", "--input", type=str, help="RNA config yaml file", required=True, metavar=".fasta file")
@@ -75,7 +77,7 @@ def main(args=None):
     parser.add_argument("-p", "--predict", help="If need to predict", action="store_true")
     parser.add_argument("-v", "--verbose", help="Enable verbose mode", action="store_true")
 
-    parsed_args = parser.parse_args(args)
+    parsed_args = parser.parse_args()
     config_file     = parsed_args.input
     output_dir      = parsed_args.output
     train           = parsed_args.train
@@ -86,4 +88,7 @@ def main(args=None):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir)
 
-    RNA(config_file, output_dir, is_train=train, is_predict=predict, debug=verbose)
+    RNA_tool(config_file, output_dir, is_train=train, is_predict=predict, debug=verbose)
+
+if __name__ == "__main__":
+    main()

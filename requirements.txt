@@ -1,8 +1,8 @@
 attention
 numpy
 pandas
-sklearn
-tensorflow
+# sklearn # use conda install conda-forge::scikit-learn
+tensorflow == 2.7.0
 keras==2.7.0 # https://github.com/keras-team/keras
 pytest
 scipy
@@ -11,3 +11,5 @@ requests
 joblib
 Counter
 pyyaml
+networkx
+matplotlib == 3.5.1

@@ -18,7 +18,7 @@ class rna_logger:
             TIME_FMT = "%m/%d %H:%M:%S"
         else:
             FORMAT = "%(message)s"
-
+            TIME_FMT = "%m"
         log_path = Path(log_path)
         if not log_path.exists():
             try:

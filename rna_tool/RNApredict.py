@@ -281,9 +281,10 @@ class RNAPredict():
 
 def predict(config_file: str, output_dir: str, train_dir: str='', verbose: bool=False, logger: logging=None):
     _config = load_config(config_file)
-    _predict_fasta  = _config['data']['predict_fasta']
-    _train_fasta    = _config['data']['train_fasta']
-    _pcp_file       = _config['data']['pcp_file']
+    _predict_fasta  = str(Path(_config['data']['predict_fasta']).resolve())
+    _train_fasta    = str(Path(_config['data']['train_fasta']).resolve())
+    _pcp_file       = str(Path(_config['data']['pcp_file']).resolve())
+
     if train_dir == '':
         _train_dir  = Path(_config['data']['train_dir'])
     else:
