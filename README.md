@@ -3,8 +3,8 @@
 - `pip install -e .` install rna_tool package
 
 ## usage
-- `rna -h` shows the detail
-- `rna -i PATH\TO\config.yaml -o PATH\TO\RESULTS -t -p -v` to run your fasta file
+- `rna_tool -h` shows the detail
+- `rna_tool -i PATH\TO\config.yaml -o PATH\TO\RESULTS -t -p -v` to run your fasta file
 - "config.yaml" examples can find under tests/assets_small_train_data/config.yaml
 
 ## NOTE

@@ -22,7 +22,7 @@ setup(
     packages=["rna_tool"],
     entry_points={
         "console_scripts": [
-            "rna = rna_tool.RNA:main",  # main 函数来自 RNA.py
+            "rna_tool = rna_tool.RNA:main",  # main 函数来自 RNA.py
         ]
     },
     install_requires=parse_requirements("requirements.txt"),
