@@ -171,6 +171,7 @@ def rna_train(feature_list: list, deep_fusion: list, params: list, \
 
     data_ = summary_df
     data = np.array(data_)
+    data = np.nan_to_num(data, nan=-9999)
     data = data[:, 0:]
     [m1, n1] = np.shape(data)
     label1 = np.ones((positive, 1))  # Value can be changed

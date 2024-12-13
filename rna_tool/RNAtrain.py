@@ -119,6 +119,7 @@ class RNAtrain:
             model.add(Attention())
             model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
             data = np.array(df)
+            data = np.nan_to_num(data, nan=-9999)
             data = data[:, 0:]
             data = data.astype(np.float32)
             [m1, n1] = np.shape(data)
@@ -137,6 +138,7 @@ class RNAtrain:
             model.add(Bidirectional(LSTM(200)))
             model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
             data = np.array(df)
+            data = np.nan_to_num(data, nan=-9999)
             data = data[:, 0:]
             data = data.astype(np.float32)
             [m1, n1] = np.shape(data)
