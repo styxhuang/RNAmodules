@@ -30,7 +30,11 @@ class RNA_tool():
         if is_predict:
             self.logger.info(f"Start predicting fasta")
             from RNApredict import predict
-            _predict_dir = Path(out_dir) / 'predict_results'
+            _predict_dir = Path(out_dir).resolve() / 'predict_results'
+            if is_train:
+                _train_dir = _train_dir
+            else:
+                _train_dir = ''
             _predict_dir.mkdir()
             predict(config_file, str(_predict_dir), str(_train_dir), logger=self.logger)
             self.logger.info(f'Finish predicting. Results saved in {str(_predict_dir)}')

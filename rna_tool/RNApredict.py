@@ -299,7 +299,7 @@ def predict(config_file: str, output_dir: str, train_dir: str='', verbose: bool=
         raise FileNotFoundError(str(_model_file))
 
     _rna = RNAPredict(_predict_fasta, output_dir, _train_fasta, _feature_file, _model_file, _pcp_file, mode=verbose, logger=logger)
-    
+
 def main(args=None):
     # 设置参数解析
     parser = argparse.ArgumentParser(description="Run RNAfold with specified parameters.")
