@@ -161,9 +161,9 @@ class RNAtrain:
             seed = v['seed']
             for _fea in feature_names:
                 if fusion_type == 'attention':
-                    _df = _lstm(seed, self.features[_fea]['data'])
-                elif fusion_type == 'lstm':
                     _df = _att_model(seed, self.features[_fea]['data'])
+                elif fusion_type == 'lstm':
+                    _df = _lstm(seed, self.features[_fea]['data'])
                 else:
                     raise RuntimeError(f'Unexpected fusion type <{fusion_type}>!')
                 self.feature_list.append(self.features[_fea]['type'])
