@@ -137,7 +137,7 @@ class RNAPredict():
                     k = int(self.feature_info['params'][i])
                     cut0path = generate_fn_file(cut0, k)
                     k1 = time.time()
-                elif self.feature_list[i] == 'psednc':
+                elif self.feature_list[i] == 'pseDNC':
                     k0 = time.time()
                     k = int(self.feature_info['params'][i])
                     cut0path = psednc(cut0, k, self.pcp)
@@ -147,14 +147,14 @@ class RNAPredict():
                     k = int(self.feature_info['params'][i])
                     cut0path = pcp(cut0, k, self.pcp)
                     k1 = time.time()
-                elif self.feature_list[i] == 'RNAfold':
+                elif self.feature_list[i] == 'rnafold':
                     k0 = time.time()
                     cut0path = RNAfold(cut0)
                     k1 = time.time()
                 self.logger.info(f'\t\t\t => feature <{self.feature_list[i]}> costs: {round(k1 - k0, 2)}s')
                 if self.debug:
                     cut0path.to_csv(f'{name}_feature_{self.feature_list[i]}.csv')
-                
+                    
                 # 拼接训练集数据与预测集数据的特征提取
                 featurepath = pd.concat([self.dataset_feature_extraction[i], cut0path])
                 
@@ -189,8 +189,8 @@ class RNAPredict():
             #  data will cause predict error
             X = scale(data)
             X = X.reshape(m1, n1,1)
-            y_score= self.model.predict(X, batch_size=2000)
-            y_list = y_score[:,1].tolist()
+            y_score= self.model.predict(X, batch_sy_scoreize=2000)
+            y_list = [:,1].tolist()
 
             t_predict = time.time()
             # self.logger.info(f"索引: {name}, 突变概率: {y_list[len(self.train_fasta):][i]}")

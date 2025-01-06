@@ -20,7 +20,7 @@ def att_model(structPath, num=312):
     [m1, n1] = np.shape(data)
 
     X = np.reshape(data, (-1, 1, n1))
-    # X = X.astype(np.float32) # RNA fold return int
+    X = X.astype(np.float32) # RNA fold return int
     cv_clf = model
     tf.config.experimental_run_functions_eagerly(False)
     feature = cv_clf.predict(X)
@@ -40,7 +40,7 @@ def lstm_model(structPath, num=1846):
     [m1, n1] = np.shape(data)
 
     X = np.reshape(data, (-1, 1, n1))
-    # X = X.astype(np.float32) # RNA fold return int
+    X = X.astype(np.float32) # RNA fold return int
     cv_clf = model
     tf.config.experimental_run_functions_eagerly(False)
     feature = cv_clf.predict(X)
