@@ -189,8 +189,8 @@ class RNAPredict():
             #  data will cause predict error
             X = scale(data)
             X = X.reshape(m1, n1,1)
-            y_score= self.model.predict(X, batch_sy_scoreize=2000)
-            y_list = [:,1].tolist()
+            y_score= self.model.predict(X, batch_size=2000)
+            y_list = y_score[:,1].tolist()
 
             t_predict = time.time()
             # self.logger.info(f"索引: {name}, 突变概率: {y_list[len(self.train_fasta):][i]}")
