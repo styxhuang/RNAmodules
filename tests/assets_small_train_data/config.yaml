@@ -45,3 +45,5 @@ train:
     epochs: 3
     shuffle: true
     imbalance: ADASYN # None, Sample_weight, ADASYN
+
+feature_yaml: "/mnt/e/code/DeepLearning/RNA/tests/assets_small_train_data/trained_data/feature.yaml"

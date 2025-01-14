@@ -156,7 +156,9 @@ class RNAPredict():
                     cut0path.to_csv(f'{name}_feature_{self.feature_list[i]}.csv')
                     
                 # 拼接训练集数据与预测集数据的特征提取
-                featurepath = pd.concat([self.dataset_feature_extraction[i], cut0path])
+                cut0path.columns = self.dataset_feature_extraction[i].columns
+                featurepath = pd.concat([self.dataset_feature_extraction[i], cut0path], axis=0, ignore_index=True)
+                # featurepath.columns = self.dataset_feature_extraction[i].columns
                 
                 # 计算合并数据的深度融合结果
                 random_seed = int(self.feature_info['random_seed'][i])

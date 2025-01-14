@@ -1,0 +1,22 @@
+features:
+    feature1:
+        type: "knfc" # kmer, knfc, pcp, pseDNC, rnafold
+        params:
+            k: 4
+        csv: '/mnt/e/code/DeepLearning/RNA/tests/assets_small_train_data/trained_data/feature1.csv'
+    feature2:
+        type: "pseDNC"
+        params:
+            k: 7
+        csv: '/mnt/e/code/DeepLearning/RNA/tests/assets_small_train_data/trained_data/feature2.csv'
+    feature3:
+        type: "rnafold"
+        params:
+            T: 37
+            salt: 1.021
+        csv: '/mnt/e/code/DeepLearning/RNA/tests/assets_small_train_data/trained_data/feature3.csv'
+
+fusion:
+    - 'lstm, lstm, lstm'
+random_seed: [1846, 1846, 1846]
+dataset: '/mnt/e/code/DeepLearning/RNA/tests/assets_small_train_data/trained_data/mxf_train.fasta'
