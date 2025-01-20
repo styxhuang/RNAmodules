@@ -151,12 +151,13 @@ class RNAPredict():
                     k0 = time.time()
                     cut0path = RNAfold(cut0)
                     k1 = time.time()
+                    self.dataset_feature_extraction[i].columns = range(len(self.dataset_feature_extraction[i].columns))
                 self.logger.info(f'\t\t\t => feature <{self.feature_list[i]}> costs: {round(k1 - k0, 2)}s')
                 if self.debug:
                     cut0path.to_csv(f'{name}_feature_{self.feature_list[i]}.csv')
                     
                 # 拼接训练集数据与预测集数据的特征提取
-                cut0path.columns = self.dataset_feature_extraction[i].columns
+                self.dataset_feature_extraction[i].columns = cut0path.columns
                 featurepath = pd.concat([self.dataset_feature_extraction[i], cut0path], axis=0, ignore_index=True)
                 # featurepath.columns = self.dataset_feature_extraction[i].columns
                 
