@@ -71,5 +71,5 @@ def RNAfold(fasta):
     subprocess.run("rm -- *ps", shell=True)
 
     file = 'rna_fold.txt'
-    df = pd.read_csv(file)
+    df = pd.read_csv(file, header=None)
     return df
